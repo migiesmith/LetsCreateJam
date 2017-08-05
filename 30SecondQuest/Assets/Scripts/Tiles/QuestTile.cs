@@ -5,16 +5,18 @@ using UnityEngine;
 public class QuestTile : Tile
 {
 
-
+    Quest quest;
 
     void Start()
     {
-
+        // Set quest
+        // quest = ???;
     }
 
-
-    void Update()
+    public override void use(PlayerController player)
     {
-
+		base.use(player);
+        player.setQuest(quest);
     }
+
 }

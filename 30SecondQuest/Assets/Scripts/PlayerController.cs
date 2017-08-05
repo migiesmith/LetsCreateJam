@@ -18,6 +18,10 @@ public class PlayerController : MonoBehaviour
 
     public bool onQuest = false;
 
+    public Quest currentQuest;
+    public int numBombs = 0;
+
+    public const int MAX_BOMBS = 5;
 
     void Start()
     {
@@ -41,22 +45,16 @@ public class PlayerController : MonoBehaviour
 
     public void useTile(Tile tile)
     {
-        if (tile is LootTile)
-        {
-			// Add to Inventory
-        }
-        else if (tile is EnemyTile)
-        {
-			// Take Damage
-        }
-        else if (tile is QuestTile)
-        {
-            // Start Timer
-            // Show Objective
-        }
+        // Use and destroy tile
+        tile.use(this);
+        if(tile != null)
+            Destroy(tile.gameObject);
+    }
 
-        // Destroy after use
-        Destroy(tile.gameObject);
+    public void setQuest(Quest quest)
+    {
+        onQuest = (quest != null);
+        this.currentQuest = quest;
     }
 
     void Update()

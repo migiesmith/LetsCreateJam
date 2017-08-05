@@ -12,8 +12,11 @@ public class BoardController : MonoBehaviour
     [SerializeField] private Tile _blankTilePrefab;
     [SerializeField] private Tile _questTilePrefab;
     [SerializeField] private Tile[] _enemyTilePrefabs;
-    private const float enemySpawnRate = 0.20f;
-    private const float lootSpawnRate = 0.70f;
+    [SerializeField] private Tile[] _obstacleTilePrefabs;
+
+    private const float enemySpawnRate = 0.2f;
+    private const float obstacleSpawnRate = 0.1f;
+    private const float lootSpawnRate = 0.65f;
     [SerializeField] private Tile[] _lootTilePrefabs;
 
     private Tile[,] _tiles;
@@ -41,6 +44,8 @@ public class BoardController : MonoBehaviour
                 }
             }
         }
+
+        updateTileVisuals();
     }
 
     private Tile makeNewTile(int boardX, int boardY, float xPos, float yPos)
@@ -75,28 +80,28 @@ public class BoardController : MonoBehaviour
         switch (dir)
         {
             case Direction.UP:
-                if (player.boardY + 1 < _boardSize.y)
+                if (player.boardY + 1 < _boardSize.y && (_tiles[player.boardX, player.boardY + 1].isTraversable || player.numBombs > 0))
                 {
                     setPlayerPos(player.boardX, player.boardY + 1);
                     madeMove = true;
                 }
                 break;
             case Direction.DOWN:
-                if (player.boardY - 1 >= 0)
+                if (player.boardY - 1 >= 0 && (_tiles[player.boardX, player.boardY - 1].isTraversable || player.numBombs > 0))
                 {
                     setPlayerPos(player.boardX, player.boardY - 1);
                     madeMove = true;
                 }
                 break;
             case Direction.LEFT:
-                if (player.boardX - 1 >= 0)
+                if (player.boardX - 1 >= 0 && (_tiles[player.boardX - 1, player.boardY].isTraversable || player.numBombs > 0))
                 {
                     setPlayerPos(player.boardX - 1, player.boardY);
                     madeMove = true;
                 }
                 break;
             case Direction.RIGHT:
-                if (player.boardX + 1 < _boardSize.x)
+                if (player.boardX + 1 < _boardSize.x && (_tiles[player.boardX + 1, player.boardY].isTraversable || player.numBombs > 0))
                 {
                     setPlayerPos(player.boardX + 1, player.boardY);
                     madeMove = true;
@@ -170,6 +175,27 @@ public class BoardController : MonoBehaviour
                     break;
                 }
         }
+        updateTileVisuals();
+    }
+
+    private void updateTileVisuals()
+    {
+        for(int x = 0; x < _tiles.GetLength(0); ++x)
+        {
+            for(int y = 0; y < _tiles.GetLength(1); ++y)
+            {
+                // Skip the player tile
+                if(x == player.boardX && y == player.boardY)
+                    continue;
+
+                bool[] dirs = new bool[4];
+                dirs[(int)Direction.UP] = (y+1 < _boardSize.y && ((x == player.boardX && y+1 == player.boardY) || _tiles[x,y+1].isTraversable));
+                dirs[(int)Direction.DOWN] = (y-1 >= 0 && ((x == player.boardX && y-1 == player.boardY) || _tiles[x,y-1].isTraversable));
+                dirs[(int)Direction.LEFT] = (x-1 >= 0 && ((x-1 == player.boardX && y == player.boardY) || _tiles[x-1,y].isTraversable));
+                dirs[(int)Direction.RIGHT] = (x+1 < _boardSize.x && ((x+1 == player.boardX && y == player.boardY) || _tiles[x+1,y].isTraversable));
+                _tiles[x,y].updateTile(dirs);
+            }
+        }
     }
 
     void Update()
@@ -195,7 +221,12 @@ public class BoardController : MonoBehaviour
         if (x != player.boardX || y != player.boardY)
         {
             float rnd = Random.Range(0.0f, 1.0f);
-            if (rnd <= enemySpawnRate)
+            if(rnd <= obstacleSpawnRate)
+            {
+                // Return an enemy tile
+                return pickObstacleTile();
+            }
+            else if (rnd <= enemySpawnRate)
             {
                 // Return an enemy tile
                 return pickEnemyTile();
@@ -209,6 +240,14 @@ public class BoardController : MonoBehaviour
 
         // Return a blank tile by default
         return _blankTilePrefab;
+    }
+
+    private Tile pickObstacleTile()
+    {
+        if (_obstacleTilePrefabs.Length == 0)
+            return _blankTilePrefab;
+        int idx = Random.Range(0, _obstacleTilePrefabs.Length);
+        return _obstacleTilePrefabs[idx];
     }
 
     private Tile pickEnemyTile()
@@ -233,5 +272,5 @@ public class BoardController : MonoBehaviour
 
 public enum Direction
 {
-    UP, DOWN, LEFT, RIGHT
+    UP = 0, DOWN = 1, LEFT = 2, RIGHT = 3
 }
