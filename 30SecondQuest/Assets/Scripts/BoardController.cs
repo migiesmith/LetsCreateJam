@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BoardController : MonoBehaviour
 {
@@ -14,15 +15,21 @@ public class BoardController : MonoBehaviour
     [SerializeField] private Tile[] _enemyTilePrefabs;
     [SerializeField] private Tile[] _obstacleTilePrefabs;
 
-    private const float enemySpawnRate = 0.2f;
+    private const float enemySpawnRate = 0.25f;
     private const float obstacleSpawnRate = 0.1f;
-    private const float lootSpawnRate = 0.65f;
+    private const float lootSpawnRate = 0.55f;
     [SerializeField] private Tile[] _lootTilePrefabs;
 
     private Tile[,] _tiles;
 
     public PlayerController player;
     private bool questTileExists = false;
+
+    [Header("Audio")]
+    [SerializeField]
+    private AudioSource _playerHitting;
+    [SerializeField] private AudioSource _playerHit;
+
 
     void Start()
     {
@@ -76,43 +83,63 @@ public class BoardController : MonoBehaviour
 
     public void movePlayer(Direction dir)
     {
-        bool madeMove = false;
-        switch (dir)
+        int dx = dir == Direction.LEFT ? -1 : dir == Direction.RIGHT ? 1 : 0;
+        int dy = dir == Direction.DOWN ? -1 : dir == Direction.UP ? 1 : 0;
+
+        if (player.boardX + dx < 0 || player.boardX + dx >= _boardSize.x || player.boardY + dy < 0 || player.boardY + dy >= _boardSize.y)
         {
-            case Direction.UP:
-                if (player.boardY + 1 < _boardSize.y && (_tiles[player.boardX, player.boardY + 1].isTraversable || player.numBombs > 0))
-                {
-                    setPlayerPos(player.boardX, player.boardY + 1);
-                    madeMove = true;
-                }
-                break;
-            case Direction.DOWN:
-                if (player.boardY - 1 >= 0 && (_tiles[player.boardX, player.boardY - 1].isTraversable || player.numBombs > 0))
-                {
-                    setPlayerPos(player.boardX, player.boardY - 1);
-                    madeMove = true;
-                }
-                break;
-            case Direction.LEFT:
-                if (player.boardX - 1 >= 0 && (_tiles[player.boardX - 1, player.boardY].isTraversable || player.numBombs > 0))
-                {
-                    setPlayerPos(player.boardX - 1, player.boardY);
-                    madeMove = true;
-                }
-                break;
-            case Direction.RIGHT:
-                if (player.boardX + 1 < _boardSize.x && (_tiles[player.boardX + 1, player.boardY].isTraversable || player.numBombs > 0))
-                {
-                    setPlayerPos(player.boardX + 1, player.boardY);
-                    madeMove = true;
-                }
-                break;
+            player.shift(dir);
+            return;
+        }
+        Tile movingTo = _tiles[player.boardX + dx, player.boardY + dy];
+        if (movingTo is EnemyTile)
+        {
+            EnemyTile enemyTile = (EnemyTile)movingTo;
+            if (player.getNumSwords() <= 0)
+            {
+                // Do damage to palyer
+                player.takeDamage(1, enemyTile.damageType);
+                // Play Audio
+                if (_playerHit != null)
+                    _playerHit.Play();
+                // Reload level if the player dies
+                if (player.getHP() <= 0)
+                    SceneManager.LoadScene(0);
+            }
+            else
+            {
+                player.useSwords(1);
+            }
+            // Do damage to enemy
+            enemyTile.attack();
+            // Play Audio
+            if (_playerHitting != null)
+                _playerHitting.Play();
+
+            if (enemyTile.getHP() <= 0)
+            {
+                setPlayerPos(player.boardX + dx, player.boardY + dy);
+                updateBoard(dir);
+            }
+            else { player.shift(dir); }
+
+        }
+        else if (movingTo.isTraversable || player.getNumBombs() > 0)
+        {
+            setPlayerPos(player.boardX + dx, player.boardY + dy);
+            updateBoard(dir);
+        }
+        else
+        {
+            player.shift(dir);
         }
 
-        player.useTile(_tiles[player.boardX, player.boardY]);
-
-        if (madeMove)
-            updateBoard(dir);
+        if (_tiles[player.boardX, player.boardY] != null)
+        {
+            player.useTile(_tiles[player.boardX, player.boardY]);
+            if (_tiles[player.boardX, player.boardY] is QuestTile)
+                questTileExists = false;
+        }
     }
 
     private void updateBoard(Direction dir)
@@ -180,20 +207,20 @@ public class BoardController : MonoBehaviour
 
     private void updateTileVisuals()
     {
-        for(int x = 0; x < _tiles.GetLength(0); ++x)
+        for (int x = 0; x < _tiles.GetLength(0); ++x)
         {
-            for(int y = 0; y < _tiles.GetLength(1); ++y)
+            for (int y = 0; y < _tiles.GetLength(1); ++y)
             {
                 // Skip the player tile
-                if(x == player.boardX && y == player.boardY)
+                if (x == player.boardX && y == player.boardY)
                     continue;
 
                 bool[] dirs = new bool[4];
-                dirs[(int)Direction.UP] = (y+1 < _boardSize.y && ((x == player.boardX && y+1 == player.boardY) || _tiles[x,y+1].isTraversable));
-                dirs[(int)Direction.DOWN] = (y-1 >= 0 && ((x == player.boardX && y-1 == player.boardY) || _tiles[x,y-1].isTraversable));
-                dirs[(int)Direction.LEFT] = (x-1 >= 0 && ((x-1 == player.boardX && y == player.boardY) || _tiles[x-1,y].isTraversable));
-                dirs[(int)Direction.RIGHT] = (x+1 < _boardSize.x && ((x+1 == player.boardX && y == player.boardY) || _tiles[x+1,y].isTraversable));
-                _tiles[x,y].updateTile(dirs);
+                dirs[(int)Direction.UP] = (y + 1 < _boardSize.y && ((x == player.boardX && y + 1 == player.boardY) || _tiles[x, y + 1].isTraversable));
+                dirs[(int)Direction.DOWN] = (y - 1 >= 0 && ((x == player.boardX && y - 1 == player.boardY) || _tiles[x, y - 1].isTraversable));
+                dirs[(int)Direction.LEFT] = (x - 1 >= 0 && ((x - 1 == player.boardX && y == player.boardY) || _tiles[x - 1, y].isTraversable));
+                dirs[(int)Direction.RIGHT] = (x + 1 < _boardSize.x && ((x + 1 == player.boardX && y == player.boardY) || _tiles[x + 1, y].isTraversable));
+                _tiles[x, y].updateTile(dirs);
             }
         }
     }
@@ -221,10 +248,12 @@ public class BoardController : MonoBehaviour
         if (x != player.boardX || y != player.boardY)
         {
             float rnd = Random.Range(0.0f, 1.0f);
-            if(rnd <= obstacleSpawnRate)
+            if (rnd <= obstacleSpawnRate)
             {
-                // Return an enemy tile
-                return pickObstacleTile();
+                // Return an obstacle tile
+                Tile obstacleTile = pickObstacleTile();
+                obstacleTile.transform.rotation = Quaternion.Euler(new Vector3(0.0f, Random.Range(0, 4) * 90.0f, 0.0f));
+                return obstacleTile;
             }
             else if (rnd <= enemySpawnRate)
             {
@@ -266,11 +295,19 @@ public class BoardController : MonoBehaviour
         return _lootTilePrefabs[idx];
     }
 
+    public static Quest generateQuest()
+    {
+        if (new System.Random().Next(0, 100) < 50)
+            return new CollectQuest();
+        else
+            return new KillQuest();
+    }
+
 }
 
 
 
 public enum Direction
 {
-    UP = 0, DOWN = 1, LEFT = 2, RIGHT = 3
+    RIGHT = 0, DOWN = 1, LEFT = 2, UP = 3
 }

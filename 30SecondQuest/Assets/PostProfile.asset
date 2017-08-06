@@ -276,7 +276,7 @@ MonoBehaviour:
         e_CurveG: 0
         e_CurveB: 0
   userLut:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       lut: {fileID: 0}
       contribution: 1

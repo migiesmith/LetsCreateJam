@@ -12,12 +12,17 @@ public class Tile : MonoBehaviour
 
     private enum TileType
     {
-        NOTSET,CROSSROAD, CORNER, STRAIGHT, THREEWAY, ONEWAY
+        NOTSET, CROSSROAD, CORNER, STRAIGHT, THREEWAY, ONEWAY
     }
     private TileType _currType = TileType.NOTSET;
     private Mesh _currMesh;
 
-    void Start()
+    [Header("On Use")]
+    [SerializeField]
+    private GameObject _onUseEffect = null;
+    [SerializeField] private Vector3 _effectOffset = Vector3.zero;
+
+    protected virtual void Start()
     {
         Vector3 localScale = transform.localScale;
         transform.localScale = new Vector3(0, 0, 0);
@@ -30,13 +35,19 @@ public class Tile : MonoBehaviour
 
     }
 
-	public virtual void use(PlayerController player)
-	{
-		if(!isTraversable)
-		{
-			player.numBombs--;
-		}
-	}
+    public virtual void use(PlayerController player)
+    {
+        if (!isTraversable)
+        {
+            player.useBombs(1);
+        }
+
+        if (_onUseEffect != null)
+        {
+            GameObject effect = Instantiate(_onUseEffect);
+            effect.transform.position = this.transform.position + _effectOffset;
+        }
+    }
 
     public virtual void updateTile(bool[] directions)
     {
@@ -149,7 +160,7 @@ public class Tile : MonoBehaviour
         if (_currType == TileType.CROSSROAD)
             return _currMesh;
 
-        List<string> tileOptions = new List<string>() { "crossroad", "crossroadruins" };
+        List<string> tileOptions = new List<string>() { "crossroad", "crossroadruins", "crossroadhouse"};
         _currMesh = (Mesh)Resources.Load("Tiles/" + tileOptions[Random.Range(0, tileOptions.Count)], typeof(Mesh));
 
         _currType = TileType.CROSSROAD;
@@ -173,7 +184,7 @@ public class Tile : MonoBehaviour
         if (_currType == TileType.CORNER)
             return _currMesh;
 
-        List<string> tileOptions = new List<string>() { "corner", "cornertown", "cornercrops" };
+        List<string> tileOptions = new List<string>() { "corner", "cornertown", "cornercrops", "cornerfort" };
         _currMesh = (Mesh)Resources.Load("Tiles/" + tileOptions[Random.Range(0, tileOptions.Count)], typeof(Mesh));
 
         _currType = TileType.CORNER;
@@ -185,7 +196,7 @@ public class Tile : MonoBehaviour
         if (_currType == TileType.THREEWAY)
             return _currMesh;
 
-        List<string> tileOptions = new List<string>() { "threeway", "threewayrice" };
+        List<string> tileOptions = new List<string>() { "threeway", "threewayrice", "threewaypumpkin"};
         _currMesh = (Mesh)Resources.Load("Tiles/" + tileOptions[Random.Range(0, tileOptions.Count)], typeof(Mesh));
 
         _currType = TileType.THREEWAY;
@@ -230,4 +241,5 @@ public class Tile : MonoBehaviour
         }
         transform.localScale = newScale;
     }
+
 }

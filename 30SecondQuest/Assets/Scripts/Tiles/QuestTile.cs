@@ -5,12 +5,11 @@ using UnityEngine;
 public class QuestTile : Tile
 {
 
-    Quest quest;
+    Quest quest = BoardController.generateQuest();
 
-    void Start()
+    protected override void Start()
     {
-        // Set quest
-        // quest = ???;
+        base.Start();
     }
 
     public override void use(PlayerController player)

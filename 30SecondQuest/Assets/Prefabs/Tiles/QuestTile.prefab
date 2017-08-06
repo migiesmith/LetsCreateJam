@@ -83,7 +83,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4280977134521034}
-  - component: {fileID: 114470351386361164}
+  - component: {fileID: 114530665036936114}
   m_Layer: 8
   m_Name: QuestTile
   m_TagString: Untagged
@@ -140,7 +140,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1611739095987678}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 1, z: 0}
+  m_LocalPosition: {x: -0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4785010182173114}
@@ -238,7 +238,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1172231958007814}
   m_Mesh: {fileID: 4300000, guid: ad5844ec1b8dd124cb4d7a95d48eb797, type: 3}
---- !u!114 &114470351386361164
+--- !u!114 &114530665036936114
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -246,8 +246,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1714640369959878}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5546e94a75cbb6d4a93501b0482bf9ea, type: 3}
+  m_Script: {fileID: 11500000, guid: aaa4080f3483c2c47a11bc69121f6d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _tileModel: {fileID: 33712266531538336}
   isTraversable: 1
+  _onUseEffect: {fileID: 0}
+  _effectOffset: {x: 0, y: 0, z: 0}
