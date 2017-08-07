@@ -2,20 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LootTile : Tile
-{
+public class LootTile : Tile {
 
-
-
-    protected override void Start()
-    {
-        base.Start();
-
-    }
-
-
-    void Update()
-    {
-
-    }
+	protected override void Start () {
+		base.Start();
+	}
+	
 }

@@ -41,7 +41,7 @@ public class Tile : MonoBehaviour
         {
             player.useBombs(1);
         }
-
+        
         if (_onUseEffect != null)
         {
             GameObject effect = Instantiate(_onUseEffect);
@@ -160,7 +160,7 @@ public class Tile : MonoBehaviour
         if (_currType == TileType.CROSSROAD)
             return _currMesh;
 
-        List<string> tileOptions = new List<string>() { "crossroad", "crossroadruins", "crossroadhouse"};
+        List<string> tileOptions = new List<string>() { "crossroad", "crossroadruins", "crossroadhouse" };
         _currMesh = (Mesh)Resources.Load("Tiles/" + tileOptions[Random.Range(0, tileOptions.Count)], typeof(Mesh));
 
         _currType = TileType.CROSSROAD;
@@ -196,7 +196,7 @@ public class Tile : MonoBehaviour
         if (_currType == TileType.THREEWAY)
             return _currMesh;
 
-        List<string> tileOptions = new List<string>() { "threeway", "threewayrice", "threewaypumpkin"};
+        List<string> tileOptions = new List<string>() { "threeway", "threewayrice", "threewaypumpkin" };
         _currMesh = (Mesh)Resources.Load("Tiles/" + tileOptions[Random.Range(0, tileOptions.Count)], typeof(Mesh));
 
         _currType = TileType.THREEWAY;

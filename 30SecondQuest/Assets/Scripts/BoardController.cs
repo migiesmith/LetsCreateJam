@@ -13,12 +13,16 @@ public class BoardController : MonoBehaviour
     [SerializeField] private Tile _blankTilePrefab;
     [SerializeField] private Tile _questTilePrefab;
     [SerializeField] private Tile[] _enemyTilePrefabs;
+    private const float enemySpawnRate = 0.25f;
     [SerializeField] private Tile[] _obstacleTilePrefabs;
 
-    private const float enemySpawnRate = 0.25f;
     private const float obstacleSpawnRate = 0.1f;
-    private const float lootSpawnRate = 0.55f;
     [SerializeField] private Tile[] _lootTilePrefabs;
+    private const float lootSpawnRate = 0.55f;
+
+    [SerializeField] private Tile[] _bonusTilePrefabs;
+    private const float bonusSpawnRate = 0.05f;
+
 
     private Tile[,] _tiles;
 
@@ -135,19 +139,61 @@ public class BoardController : MonoBehaviour
         }
 
         if (_tiles[player.boardX, player.boardY] != null)
-        {
             player.useTile(_tiles[player.boardX, player.boardY]);
-            if (_tiles[player.boardX, player.boardY] is QuestTile)
-                questTileExists = false;
-        }
+            
     }
 
-    private void updateBoard(Direction dir)
+    public void questStarted()
+    {
+        questTileExists = false;
+    }
+
+    public void fillGaps()
+    {
+        for (int x = 0; x < _tiles.GetLength(0); ++x)
+        {
+            for (int y = 0; y < _tiles.GetLength(1); ++y)
+            {
+                if (_tiles[x, y] == null && !(x == player.boardX && y == player.boardY))
+                {
+                    _tiles[x, y] = makeNewTile(x, y, getYTileOffset(x), getYTileOffset(y));
+                }
+            }
+        }
+        updateTileVisuals();
+    }
+
+    private Direction dirToPlayer(int x, int y)
+    {
+        if (x < player.boardX)
+        {
+            return Direction.LEFT;
+        }
+        else if (x > player.boardX)
+        {
+            return Direction.RIGHT;
+        }
+        else if (y < player.boardY)
+        {
+            return Direction.UP;
+        }
+        else if (y > player.boardY)
+        {
+            return Direction.DOWN;
+        }
+        return Direction.LEFT;
+    }
+
+    public void updateBoard(Direction dir)
     {
         switch (dir)
         {
             case Direction.UP:
                 {
+                    // Don't shift if the tile behind exists (allows for multiple direction updates without moving)
+                    if (player.boardY <= 0 || _tiles[player.boardX, player.boardY - 1] != null)
+                        break;
+
                     // Shift Column up and create a new tile
                     int x = player.boardX;
                     float xPos = getXTileOffset(x);
@@ -161,6 +207,10 @@ public class BoardController : MonoBehaviour
                 }
             case Direction.DOWN:
                 {
+                    // Don't shift if the tile behind exists (allows for multiple direction updates without moving)
+                    if (player.boardY + 1 > _tiles.GetLength(1) || _tiles[player.boardX, player.boardY + 1] != null)
+                        break;
+
                     // Shift Column down and create a new tile
                     int x = player.boardX;
                     float xPos = getXTileOffset(x);
@@ -175,7 +225,11 @@ public class BoardController : MonoBehaviour
                 }
             case Direction.LEFT:
                 {
-                    // Shift Column up and create a new tile
+                    // Don't shift if the tile behind exists (allows for multiple direction updates without moving)
+                    if (player.boardX + 1 > _tiles.GetLength(0) || _tiles[player.boardX + 1, player.boardY] != null)
+                        break;
+
+                    // Shift Column left and create a new tile
                     int y = player.boardY;
                     float yPos = getXTileOffset(y);
                     for (int x = player.boardX + 1; x < _boardSize.x - 1; ++x)
@@ -189,7 +243,11 @@ public class BoardController : MonoBehaviour
                 }
             case Direction.RIGHT:
                 {
-                    // Shift Column up and create a new tile
+                    // Don't shift if the tile behind exists (allows for multiple direction updates without moving)
+                    if (player.boardX <= 0 || _tiles[player.boardX - 1, player.boardY] != null)
+                        break;
+
+                    // Shift Column right and create a new tile
                     int y = player.boardY;
                     float yPos = getXTileOffset(y);
                     for (int x = player.boardX - 1; x > 0; --x)
@@ -230,7 +288,10 @@ public class BoardController : MonoBehaviour
 
     }
 
-
+    public Tile[,] getTiles()
+    {
+        return _tiles;
+    }
 
 
     /* --- Tile Generation --- */
@@ -255,15 +316,20 @@ public class BoardController : MonoBehaviour
                 obstacleTile.transform.rotation = Quaternion.Euler(new Vector3(0.0f, Random.Range(0, 4) * 90.0f, 0.0f));
                 return obstacleTile;
             }
-            else if (rnd <= enemySpawnRate)
+            else if (rnd <= enemySpawnRate + obstacleSpawnRate)
             {
                 // Return an enemy tile
                 return pickEnemyTile();
             }
-            else if (rnd <= enemySpawnRate + lootSpawnRate)
+            else if (rnd <= lootSpawnRate + enemySpawnRate + obstacleSpawnRate)
             {
                 // Return a loot tile
                 return pickLootTile();
+            }
+            else if (rnd <= bonusSpawnRate + lootSpawnRate + enemySpawnRate + obstacleSpawnRate)
+            {
+                // Return a loot tile
+                return pickBonusTile();
             }
         }
 
@@ -293,6 +359,14 @@ public class BoardController : MonoBehaviour
             return _blankTilePrefab;
         int idx = Random.Range(0, _lootTilePrefabs.Length);
         return _lootTilePrefabs[idx];
+    }
+
+    private Tile pickBonusTile()
+    {
+        if (_bonusTilePrefabs.Length == 0)
+            return _blankTilePrefab;
+        int idx = Random.Range(0, _bonusTilePrefabs.Length);
+        return _bonusTilePrefabs[idx];
     }
 
     public static Quest generateQuest()

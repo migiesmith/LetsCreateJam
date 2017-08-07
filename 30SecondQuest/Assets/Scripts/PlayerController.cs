@@ -50,7 +50,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Audio")]
 
-    [SerializeField] private AudioSource _questCompleteAudio;
+    [SerializeField]
+    private AudioSource _questCompleteAudio;
 
     [SerializeField] private AudioSource _questReceivedAudio;
 
@@ -110,12 +111,12 @@ public class PlayerController : MonoBehaviour
             if (currentQuest != null)
                 currentQuest.processTile(tile);
 
-            if(tile is LootTile)
+            if (tile is LootTile)
             {
-                if(_lootTileAudio.Length > 0)
+                if (_lootTileAudio.Length > 0)
                 {
                     int idx = Random.Range(0, _lootTileAudio.Length);
-                    if(_lootTileAudio[idx] != null)
+                    if (_lootTileAudio[idx] != null)
                         _lootTileAudio[idx].Play();
                 }
             }
@@ -130,8 +131,9 @@ public class PlayerController : MonoBehaviour
         onQuest = (quest != null);
         this.currentQuest = quest;
         this.currentQuest.questResult += onQuestComplete;
-        if(_questReceivedAudio != null)
+        if (_questReceivedAudio != null)
             _questReceivedAudio.Play();
+        _board.questStarted();
     }
 
     private void onQuestComplete(Quest.QuestResults result)

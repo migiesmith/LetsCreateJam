@@ -1677,6 +1677,10 @@ MonoBehaviour:
   - {fileID: 114106308950369122, guid: 04afc57639dc31445b83fb31211fcf44, type: 2}
   - {fileID: 114370784519198408, guid: ff2856b252448f64b9d44cb8d1b642b9, type: 2}
   - {fileID: 114056865542311364, guid: feb7983999d42704486c3a64e1b2080b, type: 2}
+  - {fileID: 114056865542311364, guid: feb7983999d42704486c3a64e1b2080b, type: 2}
+  _bonusTilePrefabs:
+  - {fileID: 114866698247652166, guid: eee1c624857b4f445a4f77996ba957cd, type: 2}
+  - {fileID: 114764535452355762, guid: 9bd1752742b00fb4eb674de3b698fa42, type: 2}
   player: {fileID: 0}
   _playerHitting: {fileID: 393022757}
   _playerHit: {fileID: 0}
