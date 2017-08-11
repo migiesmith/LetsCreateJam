@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4061557302378906}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TileModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4654022734030728}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: skull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,7 +67,7 @@ GameObject:
   - component: {fileID: 4938111882311288}
   - component: {fileID: 33914351645252006}
   - component: {fileID: 23551375514034368}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ GameObject:
   - component: {fileID: 4619512120498354}
   - component: {fileID: 33676726237666616}
   - component: {fileID: 23889842952342380}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,8 @@ GameObject:
   - component: {fileID: 4972238017295436}
   - component: {fileID: 33254698179777182}
   - component: {fileID: 23020877395460330}
-  m_Layer: 0
+  - component: {fileID: 65406266243207060}
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +133,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4916150024056262}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: demon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -367,6 +368,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1456587958966076}
   m_Mesh: {fileID: 4300000, guid: 6b52019158362c642a6609df18e420b1, type: 3}
+--- !u!65 &65406266243207060
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1870079348131478}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.5, y: 0.55, z: 5.5}
+  m_Center: {x: 0, y: 0.275, z: 0}
 --- !u!114 &114319857119654656
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -383,6 +396,7 @@ MonoBehaviour:
   _onUseEffect: {fileID: 1257111565021138, guid: 594ea7dcf19a7514ebb79f00f240d4df,
     type: 2}
   _effectOffset: {x: 0, y: 1, z: 0}
+  _description: 'Demon: medium health'
   hp: 2
   _hpBar: {fileID: 114518039517775902}
   damageType: 0

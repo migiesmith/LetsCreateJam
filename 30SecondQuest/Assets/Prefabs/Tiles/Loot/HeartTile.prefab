@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4881731991279604}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: heart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,7 +50,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4945977363747194}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TileModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,7 +67,7 @@ GameObject:
   - component: {fileID: 4188337448290686}
   - component: {fileID: 33126378579108460}
   - component: {fileID: 23757398743539512}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,8 @@ GameObject:
   - component: {fileID: 4678136093029222}
   - component: {fileID: 33609927676373252}
   - component: {fileID: 23126720013417988}
-  m_Layer: 0
+  - component: {fileID: 65660652438580032}
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,6 +239,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1657909863885946}
   m_Mesh: {fileID: 4300000, guid: ad5844ec1b8dd124cb4d7a95d48eb797, type: 3}
+--- !u!65 &65660652438580032
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1657909863885946}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.5, y: 0.55, z: 5.5}
+  m_Center: {x: 0, y: 0.275, z: 0}
 --- !u!114 &114106308950369122
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -253,3 +266,4 @@ MonoBehaviour:
   isTraversable: 1
   _onUseEffect: {fileID: 0}
   _effectOffset: {x: 0, y: 0, z: 0}
+  _description: Gain a heart.

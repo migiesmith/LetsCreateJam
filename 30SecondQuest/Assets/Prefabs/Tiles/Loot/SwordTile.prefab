@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4602064031202572}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TileModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,7 +52,8 @@ GameObject:
   - component: {fileID: 4802599133789170}
   - component: {fileID: 33724827267563368}
   - component: {fileID: 23241680893115338}
-  m_Layer: 0
+  - component: {fileID: 65917325920832786}
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +70,7 @@ GameObject:
   - component: {fileID: 4877289400676830}
   - component: {fileID: 33867857514185374}
   - component: {fileID: 23099486609668074}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +85,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4459258266821068}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,6 +239,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1574898180165338}
   m_Mesh: {fileID: 4300000, guid: 972fdab74d7cac64998a2c7601b0bf6a, type: 3}
+--- !u!65 &65917325920832786
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1522542973726426}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.5, y: 0.55, z: 5.5}
+  m_Center: {x: 0, y: 0.275, z: 0}
 --- !u!114 &114056865542311364
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -253,3 +266,4 @@ MonoBehaviour:
   isTraversable: 1
   _onUseEffect: {fileID: 0}
   _effectOffset: {x: 0, y: 0, z: 0}
+  _description: Gain a sword.

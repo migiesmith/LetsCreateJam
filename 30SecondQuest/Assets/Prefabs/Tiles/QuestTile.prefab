@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4239524787785674}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TileModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,8 @@ GameObject:
   - component: {fileID: 4070541351993390}
   - component: {fileID: 33712266531538336}
   - component: {fileID: 23479932651436588}
-  m_Layer: 0
+  - component: {fileID: 65589017605154236}
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +54,7 @@ GameObject:
   - component: {fileID: 4785010182173114}
   - component: {fileID: 33603957645748112}
   - component: {fileID: 23547250678006254}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,7 +69,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4670452017468176}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: quest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,6 +239,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1172231958007814}
   m_Mesh: {fileID: 4300000, guid: ad5844ec1b8dd124cb4d7a95d48eb797, type: 3}
+--- !u!65 &65589017605154236
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1172231958007814}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.5, y: 0.55, z: 5.5}
+  m_Center: {x: 0, y: 0.275, z: 0}
 --- !u!114 &114530665036936114
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -253,3 +266,4 @@ MonoBehaviour:
   isTraversable: 1
   _onUseEffect: {fileID: 0}
   _effectOffset: {x: 0, y: 0, z: 0}
+  _description: A quest giver is waiting for you here.

@@ -106,9 +106,6 @@ public class BoardController : MonoBehaviour
                 // Play Audio
                 if (_playerHit != null)
                     _playerHit.Play();
-                // Reload level if the player dies
-                if (player.getHP() <= 0)
-                    SceneManager.LoadScene(0);
             }
             else
             {
@@ -141,6 +138,11 @@ public class BoardController : MonoBehaviour
         if (_tiles[player.boardX, player.boardY] != null)
             player.useTile(_tiles[player.boardX, player.boardY]);
 
+        // Reload level if the player dies
+        if (player.getHP() <= 0)
+        {
+            newGame();
+        }
     }
 
     public void questStarted()
@@ -264,14 +266,26 @@ public class BoardController : MonoBehaviour
                     break;
                 }
         }
+
+        // Check if the player is stuck
+        if (player.getNumBombs() <= 0 && !(
+                (player.boardX < _tiles.GetLength(0) - 1 && _tiles[player.boardX + 1, player.boardY].isTraversable) || // Can move right
+                (player.boardY > 0 && _tiles[player.boardX, player.boardY - 1].isTraversable) || // Can move down
+                (player.boardX > 0 && _tiles[player.boardX - 1, player.boardY].isTraversable) || // Can move left
+                (player.boardY < _tiles.GetLength(1) - 1 && _tiles[player.boardX, player.boardY + 1].isTraversable)    // Can move up
+            ))
+        {
+            newGame();
+        }
+
         updateTileVisuals();
     }
 
     private void updateTileVisuals()
     {
         for (int x = 0; x < _tiles.GetLength(0); ++x)
-            for (int y = 0; y < _tiles.GetLength(1); ++y)   
-                if(_tiles[x,y] == null && (x != player.boardX || y != player.boardY))
+            for (int y = 0; y < _tiles.GetLength(1); ++y)
+                if (_tiles[x, y] == null && (x != player.boardX || y != player.boardY))
                     return;
 
         for (int x = 0; x < _tiles.GetLength(0); ++x)
@@ -397,6 +411,13 @@ public class BoardController : MonoBehaviour
             return new CollectQuest();
         else
             return new KillQuest();
+    }
+
+    public void newGame()
+    {
+        if (PlayerPrefs.GetInt("TopScore") < player.getScore())
+            PlayerPrefs.SetInt("TopScore", player.getScore());
+        SceneManager.LoadScene("MainScene");
     }
 
 }

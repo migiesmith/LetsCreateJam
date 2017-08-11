@@ -21,7 +21,8 @@ GameObject:
   - component: {fileID: 4635664598530828}
   - component: {fileID: 33283357342477186}
   - component: {fileID: 23896783389977850}
-  m_Layer: 0
+  - component: {fileID: 65894954801078942}
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +39,7 @@ GameObject:
   - component: {fileID: 4619751086372016}
   - component: {fileID: 33563629154391844}
   - component: {fileID: 23548489950219770}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +70,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4502312126109132}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TileModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +85,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4420212555863778}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: staff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,6 +239,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1780831237058370}
   m_Mesh: {fileID: 4300000, guid: 21c6623533852884bb23ed04b545cdf9, type: 3}
+--- !u!65 &65894954801078942
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1060269679500464}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.5, y: 0.55, z: 5.5}
+  m_Center: {x: 0, y: 0.275, z: 0}
 --- !u!114 &114866698247652166
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -254,6 +267,7 @@ MonoBehaviour:
   _onUseEffect: {fileID: 1962540700229208, guid: 0cedc93e084c4ae468a5376fa5af8e4b,
     type: 2}
   _effectOffset: {x: 0, y: 0, z: 0}
+  _description: Cast a lighting spell, triggering multiple tiles.
   _lightingEffect: {fileID: 114445403497395206, guid: 0cedc93e084c4ae468a5376fa5af8e4b,
     type: 2}
   _lightingAudio: {fileID: 8300000, guid: 2518a50fbaaa71c458f23ae837412aca, type: 3}

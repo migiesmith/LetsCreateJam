@@ -22,6 +22,8 @@ public class Tile : MonoBehaviour
     private GameObject _onUseEffect = null;
     [SerializeField] private Vector3 _effectOffset = Vector3.zero;
 
+    [SerializeField] private string _description = "";
+
     private static Dictionary<string, Mesh> _meshCache = new Dictionary<string, Mesh>();
 
 
@@ -36,6 +38,11 @@ public class Tile : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public virtual string getToolTip()
+    {
+        return _description;
     }
 
     public virtual void use(PlayerController player)

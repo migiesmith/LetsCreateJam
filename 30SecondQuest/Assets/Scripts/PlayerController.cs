@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     private int _numBombs = 0;
 
     /* Swords */
-    public const int MAX_SWORDS = 3;
+    public const int MAX_SWORDS = 4;
     private int _numSwords = 0;
 
 
@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Text _questText;
     [SerializeField] private Text _questDuration;
     [SerializeField] private Text _scoreText;
+    [SerializeField] private Text _topScoreText;
 
     [Header("Audio")]
 
@@ -74,6 +75,8 @@ public class PlayerController : MonoBehaviour
             _bombBar.setValue(_numBombs);
         if (_scoreText != null)
             _scoreText.text = "Score: 0";
+        if (_topScoreText != null)
+            _topScoreText.text = "Top Score: " + PlayerPrefs.GetInt("TopScore", 0);
     }
 
     public void moveTo(Vector3 newPos)
@@ -122,7 +125,7 @@ public class PlayerController : MonoBehaviour
             }
 
             tile.use(this);
-            if(tile != null)
+            if (tile != null)
                 Destroy(tile.gameObject);
         }
     }
@@ -143,8 +146,7 @@ public class PlayerController : MonoBehaviour
         {
             case Quest.QuestResults.FAIL:
                 {
-                    Debug.Log("FAIL");
-                    SceneManager.LoadScene(0);
+                    _board.newGame();
                     break;
                 }
             case Quest.QuestResults.COMPELTE:
@@ -226,7 +228,7 @@ public class PlayerController : MonoBehaviour
 
     public void takeDamage(int amount, DamageType type)
     {
-        if (type == DamageType.NORMAL && _numShields >= 0)
+        if (type == DamageType.NORMAL && _numShields > 0)
         {
             _numShields = Mathf.Max(_numShields - amount, 0);
             if (_shieldBar != null)
@@ -293,6 +295,12 @@ public class PlayerController : MonoBehaviour
     public int getNumBombs()
     {
         return _numBombs;
+    }
+
+
+    public int getScore()
+    {
+        return _score;
     }
 
 }

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4265167401785142}
   - component: {fileID: 33817129253518134}
   - component: {fileID: 23146682381152384}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4281277133632854}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4528693789841110}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TileModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,7 +68,8 @@ GameObject:
   - component: {fileID: 4854957191320756}
   - component: {fileID: 33083805268061226}
   - component: {fileID: 23342788808027920}
-  m_Layer: 0
+  - component: {fileID: 65903741402029898}
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,6 +239,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1180213033382462}
   m_Mesh: {fileID: 4300000, guid: 3471f08125b79034c9c1177b5d0e4956, type: 3}
+--- !u!65 &65903741402029898
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1612144887839868}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.5, y: 0.55, z: 5.5}
+  m_Center: {x: 0, y: 0.275, z: 0}
 --- !u!114 &114537382577537168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -251,3 +264,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tileModel: {fileID: 33083805268061226}
   isTraversable: 1
+  _onUseEffect: {fileID: 0}
+  _effectOffset: {x: 0, y: 0, z: 0}
+  _description: Gain a bomb.

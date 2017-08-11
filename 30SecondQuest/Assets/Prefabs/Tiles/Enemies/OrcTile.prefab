@@ -35,7 +35,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4673837205118468}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TileModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,7 +68,8 @@ GameObject:
   - component: {fileID: 4526580754832472}
   - component: {fileID: 33058979114055466}
   - component: {fileID: 23043970397143872}
-  m_Layer: 0
+  - component: {fileID: 65637042929164940}
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +86,7 @@ GameObject:
   - component: {fileID: 4282820666730330}
   - component: {fileID: 33170146434201780}
   - component: {fileID: 23965693954582814}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +101,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4717176136051472}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: skull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +118,7 @@ GameObject:
   - component: {fileID: 4075794382589380}
   - component: {fileID: 33872932867057896}
   - component: {fileID: 23249680777913532}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +133,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4170970892586664}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: orc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -367,6 +368,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1820054874671092}
   m_Mesh: {fileID: 4300000, guid: 6b52019158362c642a6609df18e420b1, type: 3}
+--- !u!65 &65637042929164940
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1586146338468320}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.5, y: 0.55, z: 5.5}
+  m_Center: {x: 0, y: 0.275, z: 0}
 --- !u!114 &114185331074704356
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -397,6 +410,7 @@ MonoBehaviour:
   _onUseEffect: {fileID: 1257111565021138, guid: 594ea7dcf19a7514ebb79f00f240d4df,
     type: 2}
   _effectOffset: {x: 0, y: 1, z: 0}
+  _description: 'Orc: high health'
   hp: 3
   _hpBar: {fileID: 114185331074704356}
   damageType: 0

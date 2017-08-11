@@ -35,7 +35,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4778263206245432}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: skull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,7 +68,7 @@ GameObject:
   - component: {fileID: 4749132048536664}
   - component: {fileID: 33206849389307438}
   - component: {fileID: 23746888198779788}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 4374922047507300}
   - component: {fileID: 33637222708074372}
   - component: {fileID: 23821700135084502}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4038633025757000}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: spider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,8 @@ GameObject:
   - component: {fileID: 4862285633916480}
   - component: {fileID: 33417393165860340}
   - component: {fileID: 23969339875381680}
-  m_Layer: 0
+  - component: {fileID: 65408643427860158}
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +133,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4737486842651686}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TileModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -367,6 +368,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1710779286202912}
   m_Mesh: {fileID: 4300000, guid: b45f492732d75bc4aaf410aec13bdcfe, type: 3}
+--- !u!65 &65408643427860158
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1887925818563860}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.5, y: 0.55, z: 5.5}
+  m_Center: {x: 0, y: 0.275, z: 0}
 --- !u!114 &114089574243745736
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -383,6 +396,7 @@ MonoBehaviour:
   _onUseEffect: {fileID: 1257111565021138, guid: 594ea7dcf19a7514ebb79f00f240d4df,
     type: 2}
   _effectOffset: {x: 0, y: 1, z: 0}
+  _description: 'Spider: low health, ignores shields, damaging health directly.'
   hp: 1
   _hpBar: {fileID: 114370922782466058}
   damageType: 1

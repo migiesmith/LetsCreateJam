@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4660617610485444}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: megabomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4043400894441328}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TileModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ GameObject:
   - component: {fileID: 4724823096096126}
   - component: {fileID: 33182117177259260}
   - component: {fileID: 23882496108109444}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,7 +68,8 @@ GameObject:
   - component: {fileID: 4632126922645060}
   - component: {fileID: 33332803671295056}
   - component: {fileID: 23734788084926406}
-  m_Layer: 0
+  - component: {fileID: 65255863768036748}
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,6 +239,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1879410973308410}
   m_Mesh: {fileID: 4300000, guid: ad5844ec1b8dd124cb4d7a95d48eb797, type: 3}
+--- !u!65 &65255863768036748
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1879410973308410}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.5, y: 0.55, z: 5.5}
+  m_Center: {x: 0, y: 0.275, z: 0}
 --- !u!114 &114764535452355762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -254,4 +267,5 @@ MonoBehaviour:
   _onUseEffect: {fileID: 1645601163107442, guid: 441f96c63e63376498064986fd6fbe4d,
     type: 2}
   _effectOffset: {x: 0, y: 2, z: 0}
+  _description: Explode a mega bomb triggering adjacent tiles.
   _megaBombAudio: {fileID: 8300000, guid: d6392d001cf994841860946a62489a35, type: 3}
