@@ -8,11 +8,11 @@ public class KillQuest : Quest
 
     public enum Collectable
     {
-        DEMON = 0, SPIDER = 1
+        DEMON = 0, SPIDER = 1, ORC = 2
     }
     private Collectable _toCollect;
 
-    private int _numToKill = new System.Random().Next(4, 6);
+    private int _numToKill = new System.Random().Next(3, 5);
     private int _numKilled = 0;
 
     public KillQuest()
@@ -25,6 +25,9 @@ public class KillQuest : Quest
                 break;
             case (int)Collectable.SPIDER:
                 _toCollect = Collectable.SPIDER;
+                break;
+            case (int)Collectable.ORC:
+                _toCollect = Collectable.ORC;
                 break;
         }
     }
@@ -39,6 +42,9 @@ public class KillQuest : Quest
                 break;
             case Collectable.SPIDER:
                 val += "spiders. ";
+                break;
+            case Collectable.ORC:
+                val += "orcs. ";
                 break;
         }
         return val + Mathf.RoundToInt(progress * 100.0f) + "%";
@@ -56,6 +62,11 @@ public class KillQuest : Quest
             case Collectable.SPIDER:
                 if (tile is EnemyTile)
                     if (((EnemyTile)tile).enemyName == "Spider")
+                        _numKilled++;
+                break;
+            case Collectable.ORC:
+                if (tile is EnemyTile)
+                    if (((EnemyTile)tile).enemyName == "Orc")
                         _numKilled++;
                 break;
         }

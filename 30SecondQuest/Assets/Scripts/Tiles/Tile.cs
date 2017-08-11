@@ -22,6 +22,9 @@ public class Tile : MonoBehaviour
     private GameObject _onUseEffect = null;
     [SerializeField] private Vector3 _effectOffset = Vector3.zero;
 
+    private static Dictionary<string, Mesh> _meshCache = new Dictionary<string, Mesh>();
+
+
     protected virtual void Start()
     {
         Vector3 localScale = transform.localScale;
@@ -41,7 +44,7 @@ public class Tile : MonoBehaviour
         {
             player.useBombs(1);
         }
-        
+
         if (_onUseEffect != null)
         {
             GameObject effect = Instantiate(_onUseEffect);
@@ -155,13 +158,28 @@ public class Tile : MonoBehaviour
         }
     }
 
+    private Mesh loadMesh(string meshName)
+    {
+        Mesh mesh = null;
+        if (_meshCache.ContainsKey(meshName))
+        {
+            mesh = _meshCache[meshName];
+        }
+        else
+        {
+            mesh = (Mesh)Resources.Load("Tiles/" + meshName, typeof(Mesh));
+            _meshCache.Add(meshName, mesh);
+        }
+        return mesh;
+    }
+
     private Mesh pickCrossroadModel()
     {
         if (_currType == TileType.CROSSROAD)
             return _currMesh;
 
         List<string> tileOptions = new List<string>() { "crossroad", "crossroadruins", "crossroadhouse" };
-        _currMesh = (Mesh)Resources.Load("Tiles/" + tileOptions[Random.Range(0, tileOptions.Count)], typeof(Mesh));
+        _currMesh = loadMesh(tileOptions[Random.Range(0, tileOptions.Count)]);
 
         _currType = TileType.CROSSROAD;
         return _currMesh;
@@ -173,7 +191,7 @@ public class Tile : MonoBehaviour
             return _currMesh;
 
         List<string> tileOptions = new List<string>() { "straight", "straightfarm", "straighttrees" };
-        _currMesh = (Mesh)Resources.Load("Tiles/" + tileOptions[Random.Range(0, tileOptions.Count)], typeof(Mesh));
+        _currMesh = loadMesh(tileOptions[Random.Range(0, tileOptions.Count)]);
 
         _currType = TileType.STRAIGHT;
         return _currMesh;
@@ -185,7 +203,7 @@ public class Tile : MonoBehaviour
             return _currMesh;
 
         List<string> tileOptions = new List<string>() { "corner", "cornertown", "cornercrops", "cornerfort" };
-        _currMesh = (Mesh)Resources.Load("Tiles/" + tileOptions[Random.Range(0, tileOptions.Count)], typeof(Mesh));
+        _currMesh = loadMesh(tileOptions[Random.Range(0, tileOptions.Count)]);
 
         _currType = TileType.CORNER;
         return _currMesh;
@@ -197,7 +215,7 @@ public class Tile : MonoBehaviour
             return _currMesh;
 
         List<string> tileOptions = new List<string>() { "threeway", "threewayrice", "threewaypumpkin" };
-        _currMesh = (Mesh)Resources.Load("Tiles/" + tileOptions[Random.Range(0, tileOptions.Count)], typeof(Mesh));
+        _currMesh = loadMesh(tileOptions[Random.Range(0, tileOptions.Count)]);
 
         _currType = TileType.THREEWAY;
         return _currMesh;
@@ -209,7 +227,7 @@ public class Tile : MonoBehaviour
             return _currMesh;
 
         List<string> tileOptions = new List<string>() { "oneway", "onewayrocks", "onewaytrees", "onewaywater" };
-        _currMesh = (Mesh)Resources.Load("Tiles/" + tileOptions[Random.Range(0, tileOptions.Count)], typeof(Mesh));
+        _currMesh = loadMesh(tileOptions[Random.Range(0, tileOptions.Count)]);
 
         _currType = TileType.ONEWAY;
         return _currMesh;

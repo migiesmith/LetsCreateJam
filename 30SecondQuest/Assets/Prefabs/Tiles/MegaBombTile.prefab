@@ -254,3 +254,4 @@ MonoBehaviour:
   _onUseEffect: {fileID: 1645601163107442, guid: 441f96c63e63376498064986fd6fbe4d,
     type: 2}
   _effectOffset: {x: 0, y: 2, z: 0}
+  _megaBombAudio: {fileID: 8300000, guid: d6392d001cf994841860946a62489a35, type: 3}

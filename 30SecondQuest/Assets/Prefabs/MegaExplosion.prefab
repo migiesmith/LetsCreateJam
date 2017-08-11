@@ -89,7 +89,6 @@ GameObject:
   - component: {fileID: 198498971311060782}
   - component: {fileID: 199201749847795148}
   - component: {fileID: 114243926595239134}
-  - component: {fileID: 82087206454098306}
   m_Layer: 0
   m_Name: MegaExplosion
   m_TagString: Untagged
@@ -197,86 +196,6 @@ Transform:
   m_Father: {fileID: 4273961057364556}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &82087206454098306
-AudioSource:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1645601163107442}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d6392d001cf994841860946a62489a35, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
 --- !u!95 &95193680534175518
 Animator:
   serializedVersion: 3
@@ -305,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1fc1006a8afe934eaf303e5bfad4830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeTillDestroyed: 5
+  timeTillDestroyed: 1.5
 --- !u!198 &198318467255839368
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -365,7 +284,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -777630728
+  randomSeed: -347245022
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3627,7 +3546,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -2040441676
+  randomSeed: -342306092
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6889,7 +6808,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -616770419
+  randomSeed: 567808689
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -10162,7 +10081,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1699869998
+  randomSeed: -1640803896
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -13424,7 +13343,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1492436478
+  randomSeed: 2141161744
   InitialModule:
     serializedVersion: 3
     enabled: 1

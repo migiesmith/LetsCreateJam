@@ -12,16 +12,16 @@ public class BoardController : MonoBehaviour
 
     [SerializeField] private Tile _blankTilePrefab;
     [SerializeField] private Tile _questTilePrefab;
-    [SerializeField] private Tile[] _enemyTilePrefabs;
-    private const float enemySpawnRate = 0.25f;
+    [SerializeField] private EnemyTile[] _enemyTilePrefabs;
+    private const float enemySpawnRate = 0.25f; // 25%
     [SerializeField] private Tile[] _obstacleTilePrefabs;
 
-    private const float obstacleSpawnRate = 0.1f;
-    [SerializeField] private Tile[] _lootTilePrefabs;
-    private const float lootSpawnRate = 0.55f;
+    private const float obstacleSpawnRate = 0.1f; // 10%
+    [SerializeField] private LootTile[] _lootTilePrefabs;
+    private const float lootSpawnRate = 0.55f; // 55%
 
     [SerializeField] private Tile[] _bonusTilePrefabs;
-    private const float bonusSpawnRate = 0.05f;
+    private const float bonusSpawnRate = 0.05f; // 5%
 
 
     private Tile[,] _tiles;
@@ -140,7 +140,7 @@ public class BoardController : MonoBehaviour
 
         if (_tiles[player.boardX, player.boardY] != null)
             player.useTile(_tiles[player.boardX, player.boardY]);
-            
+
     }
 
     public void questStarted()
@@ -154,7 +154,7 @@ public class BoardController : MonoBehaviour
         {
             for (int y = 0; y < _tiles.GetLength(1); ++y)
             {
-                if (_tiles[x, y] == null && !(x == player.boardX && y == player.boardY))
+                if (_tiles[x, y] == null && (x != player.boardX || y != player.boardY))
                 {
                     _tiles[x, y] = makeNewTile(x, y, getYTileOffset(x), getYTileOffset(y));
                 }
@@ -200,7 +200,8 @@ public class BoardController : MonoBehaviour
                     for (int y = player.boardY - 1; y > 0; --y)
                     {
                         _tiles[x, y] = _tiles[x, y - 1];
-                        _tiles[x, y].moveTo(new Vector3(xPos, this.transform.position.y, getYTileOffset(y)));
+                        if (_tiles[x, y] != null)
+                            _tiles[x, y].moveTo(new Vector3(xPos, this.transform.position.y, getYTileOffset(y)));
                     }
                     _tiles[x, 0] = makeNewTile(x, 0, xPos, getYTileOffset(0));
                     break;
@@ -217,7 +218,8 @@ public class BoardController : MonoBehaviour
                     for (int y = player.boardY + 1; y < _boardSize.y - 1; ++y)
                     {
                         _tiles[x, y] = _tiles[x, y + 1];
-                        _tiles[x, y].moveTo(new Vector3(xPos, this.transform.position.y, getYTileOffset(y)));
+                        if (_tiles[x, y] != null)
+                            _tiles[x, y].moveTo(new Vector3(xPos, this.transform.position.y, getYTileOffset(y)));
                     }
                     int newPos = Mathf.RoundToInt(_boardSize.y - 1);
                     _tiles[x, newPos] = makeNewTile(x, newPos, xPos, getYTileOffset(newPos));
@@ -235,7 +237,8 @@ public class BoardController : MonoBehaviour
                     for (int x = player.boardX + 1; x < _boardSize.x - 1; ++x)
                     {
                         _tiles[x, y] = _tiles[x + 1, y];
-                        _tiles[x, y].moveTo(new Vector3(getXTileOffset(x), this.transform.position.y, yPos));
+                        if (_tiles[x, y] != null)
+                            _tiles[x, y].moveTo(new Vector3(getXTileOffset(x), this.transform.position.y, yPos));
                     }
                     int newPos = Mathf.RoundToInt(_boardSize.x - 1);
                     _tiles[newPos, y] = makeNewTile(newPos, y, getXTileOffset(newPos), yPos);
@@ -253,7 +256,8 @@ public class BoardController : MonoBehaviour
                     for (int x = player.boardX - 1; x > 0; --x)
                     {
                         _tiles[x, y] = _tiles[x - 1, y];
-                        _tiles[x, y].moveTo(new Vector3(getXTileOffset(x), this.transform.position.y, yPos));
+                        if (_tiles[x, y] != null)
+                            _tiles[x, y].moveTo(new Vector3(getXTileOffset(x), this.transform.position.y, yPos));
                     }
                     _tiles[0, y] = makeNewTile(0, y, getXTileOffset(0), yPos);
 
@@ -265,6 +269,11 @@ public class BoardController : MonoBehaviour
 
     private void updateTileVisuals()
     {
+        for (int x = 0; x < _tiles.GetLength(0); ++x)
+            for (int y = 0; y < _tiles.GetLength(1); ++y)   
+                if(_tiles[x,y] == null && (x != player.boardX || y != player.boardY))
+                    return;
+
         for (int x = 0; x < _tiles.GetLength(0); ++x)
         {
             for (int y = 0; y < _tiles.GetLength(1); ++y)
@@ -349,6 +358,19 @@ public class BoardController : MonoBehaviour
     {
         if (_enemyTilePrefabs.Length == 0)
             return _blankTilePrefab;
+
+        float weight = 0;
+        for (int i = 0; i < _enemyTilePrefabs.Length; ++i)
+            weight += 1.0f / _enemyTilePrefabs[i].getHP();
+
+        weight *= Random.Range(0.0f, 1.0f);
+        for (int i = 0; i < _enemyTilePrefabs.Length; ++i)
+        {
+            weight -= 1.0f / _enemyTilePrefabs[i].getHP();
+            if (weight <= 0)
+                return _enemyTilePrefabs[i];
+        }
+        // Return random (shouldn't reach)
         int idx = Random.Range(0, _enemyTilePrefabs.Length);
         return _enemyTilePrefabs[idx];
     }

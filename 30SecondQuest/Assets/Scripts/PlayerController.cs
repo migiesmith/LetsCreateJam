@@ -122,7 +122,8 @@ public class PlayerController : MonoBehaviour
             }
 
             tile.use(this);
-            Destroy(tile.gameObject);
+            if(tile != null)
+                Destroy(tile.gameObject);
         }
     }
 

@@ -256,3 +256,4 @@ MonoBehaviour:
   _effectOffset: {x: 0, y: 0, z: 0}
   _lightingEffect: {fileID: 114445403497395206, guid: 0cedc93e084c4ae468a5376fa5af8e4b,
     type: 2}
+  _lightingAudio: {fileID: 8300000, guid: 2518a50fbaaa71c458f23ae837412aca, type: 3}
