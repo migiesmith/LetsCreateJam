@@ -10,11 +10,23 @@ public class TileTipController : MonoBehaviour
     private Image _background;
     private Text _text;
 
+    private bool _swiping = false;
+
     // Use this for initialization
     void Start()
     {
         _background = GetComponentInChildren<Image>();
         _text = GetComponentInChildren<Text>();
+
+        SwipeManager.OnSwipeDetected += onSwipe;
+    }
+
+    void onSwipe(Swipe direction, Vector2 velocity)
+    {
+        if (direction == Swipe.None)
+            _swiping = false;
+        else
+            _swiping = true;
     }
 
     // Update is called once per frame
@@ -22,7 +34,7 @@ public class TileTipController : MonoBehaviour
     {
         Ray r = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(r, out hit, Mathf.Infinity, _layerMask, QueryTriggerInteraction.UseGlobal))
+        if ((!_swiping || !Input.GetMouseButtonDown(0)) && Physics.Raycast(r, out hit, Mathf.Infinity, _layerMask, QueryTriggerInteraction.UseGlobal))
         {
             Tile tile = hit.collider.GetComponentInParent<Tile>();
             string toolTipText = tile.getToolTip();

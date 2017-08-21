@@ -170,7 +170,18 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         float x = Input.GetAxisRaw("Horizontal");
+
+        if (SwipeManager.IsSwipingLeft())
+            x = -1.0f;
+        else if (SwipeManager.IsSwipingRight())
+            x = 1.0f;
         float y = Input.GetAxisRaw("Vertical");
+
+        if (SwipeManager.IsSwipingDown())
+            y = -1.0f;
+        else if (SwipeManager.IsSwipingUp())
+            y = 1.0f;
+
         if (canMove)
         {
             canMove = false;
